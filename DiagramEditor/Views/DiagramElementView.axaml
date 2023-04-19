@@ -1,0 +1,29 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="400" d:DesignHeight="450"
+             x:Class="DiagramEditor.Views.DiagramElementView">
+
+	<Grid RowDefinitions="*,*,*,*,*,*,*">
+		<RadioButton Grid.Row="1" IsChecked="{Binding Option1Enabled }"
+				 GroupName="First Group"
+				 Content="Наследование"/>
+		<RadioButton Grid.Row="2" IsChecked="{Binding Option2Enabled }"
+					 GroupName="First Group"
+					 Content="Реализация"/>
+		<RadioButton Grid.Row="3" IsChecked="{Binding Option3Enabled }"
+					 GroupName="First Group"
+					 Content="Зависимость"/>
+		<RadioButton Grid.Row="4" IsChecked="{Binding Option4Enabled }"
+				 GroupName="First Group"
+				 Content="Агрегирование"/>
+		<RadioButton Grid.Row="5" IsChecked="{Binding Option5Enabled }"
+					 GroupName="First Group"
+					 Content="Композиция"/>
+		<RadioButton Grid.Row="6" IsChecked="{Binding Option6Enabled }"
+					 GroupName="First Group"
+					 Content="Ассоциация"/>
+	</Grid>
+
+</UserControl>

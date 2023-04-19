@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.4.33213.308
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DiagramEditor", "DiagramEditor\DiagramEditor.csproj", "{DED58265-4C27-4A77-A58A-BACD299806EE}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{DED58265-4C27-4A77-A58A-BACD299806EE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DED58265-4C27-4A77-A58A-BACD299806EE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DED58265-4C27-4A77-A58A-BACD299806EE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DED58265-4C27-4A77-A58A-BACD299806EE}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {C426A9E6-B045-40D6-BF78-DEC933481418}
+	EndGlobalSection
+EndGlobal

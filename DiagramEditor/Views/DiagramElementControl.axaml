@@ -1,0 +1,65 @@
+﻿<Styles xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+		xmlns:controls="using:DiagramEditor.Views"
+		xmlns:local="clr-namespace:DiagramEditor.Models.Converters">
+	
+    <Design.PreviewWith>
+        <Border Padding="20">
+			<controls:DiagramElementControl Name="test" IsInterface="true"/>
+        </Border>
+    </Design.PreviewWith>
+
+	<Styles.Resources>
+		<local:IsInterfaceToStringConverter x:Key="isInterfaceToStringConverter"/>
+		<local:VisibilityToSignConverter x:Key="visibilityToSignConverter"/>
+	</Styles.Resources>
+
+	<Style Selector="controls|DiagramElementControl">
+		<!-- Set Defaults -->
+		<Setter Property="Template">
+			<ControlTemplate>
+				<Canvas Name="DiagramElement" Height="110" Width="110" Background="White">
+
+					<Border BorderBrush="Black" BorderThickness="1" Width="100" Height="100">
+						<StackPanel>
+							<Border BorderBrush="Black" BorderThickness="1">
+								<StackPanel>
+									<TextBlock Text="{TemplateBinding IsInterface, Converter={StaticResource isInterfaceToStringConverter}}"
+											   FontStyle="Italic" HorizontalAlignment="Center"/>
+									<TextBlock Text="{TemplateBinding Name}" FontWeight="Bold" HorizontalAlignment="Center"/>
+								</StackPanel>
+							</Border>
+							<Border BorderBrush="Black" BorderThickness="1">
+								<DataGrid Items="{TemplateBinding Attributes}">
+									<DataGrid.Columns>
+										<DataGridTextColumn Header="Stereotype" Binding="{Binding Stereotype}"/>
+										<DataGridTextColumn Header="Visibility" 
+															Binding="{Binding Visibility, Converter={StaticResource visibilityToSignConverter}}" />
+										<DataGridTextColumn Header="Name" Binding="{Binding Name}" />
+										<DataGridTextColumn Header="Type" Binding="{Binding Type}" />
+									</DataGrid.Columns>
+								</DataGrid>
+							</Border>
+						</StackPanel>
+						<Border.RenderTransform>
+							<TranslateTransform X="5" Y="5"/>
+						</Border.RenderTransform>
+					</Border>
+					
+					<Ellipse Width="10" Height="10" Fill="DarkGreen">
+						<Ellipse.RenderTransform>
+							<TranslateTransform X="2.5" Y="49"/>
+						</Ellipse.RenderTransform>
+					</Ellipse>
+					
+					<Ellipse Width="10" Height="10" Fill="DarkGreen">
+						<Ellipse.RenderTransform>
+							<TranslateTransform X="100" Y="49"/>
+						</Ellipse.RenderTransform>
+					</Ellipse>
+					
+				</Canvas>
+			</ControlTemplate>
+		</Setter>
+	</Style>
+</Styles>
