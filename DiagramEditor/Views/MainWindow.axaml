@@ -64,7 +64,8 @@
 
 					<DataTemplate DataType="{x:Type	models:DiagramElement}">
 						<views:DiagramElementControl Name="{Binding Name}" IsInterface="{Binding IsInterface}"
-													 Attributes="{Binding Attributes}">
+													 Attributes="{Binding Attributes}" StartPoint="{Binding StartPoint}"
+													 Height="{Binding Height}" Width="{Binding Width}">
 							<views:DiagramElementControl.RenderTransform>
 								<TranslateTransform X="{Binding StartPoint.X}"
 													Y="{Binding StartPoint.Y}"/>

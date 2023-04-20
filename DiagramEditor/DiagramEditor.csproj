@@ -9,7 +9,6 @@
   </PropertyGroup>
   <ItemGroup>
     <AvaloniaResource Include="Assets\**" />
-    <Folder Include="Models\Serializers\" />
     <None Remove=".gitignore" />
   </ItemGroup>
   <ItemGroup>
@@ -27,5 +26,8 @@
     <PackageReference Condition="'$(Configuration)' == 'Debug'" Include="Avalonia.Diagnostics" Version="0.10.19" />
     <PackageReference Include="Avalonia.ReactiveUI" Version="0.10.19" />
     <PackageReference Include="XamlNameReferenceGenerator" Version="1.6.1" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Models\Serializers\" />
   </ItemGroup>
 </Project>

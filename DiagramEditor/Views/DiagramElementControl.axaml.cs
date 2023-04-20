@@ -4,6 +4,7 @@ using Avalonia.Controls.Primitives;
 using DiagramEditor.Models.DiagramObjects;
 using System.Collections.ObjectModel;
 using ReactiveUI;
+using DynamicData.Diagnostics;
 
 namespace DiagramEditor.Views
 {
@@ -24,6 +25,15 @@ namespace DiagramEditor.Views
         {
             get => GetValue(IsInterfaceProperty);
             set => SetValue(IsInterfaceProperty, value);
+        }
+
+        public static readonly StyledProperty<Point> StartPointProperty =
+            AvaloniaProperty.Register<DiagramElementControl, Point>("StartPoint");
+
+        public Point StartPoint
+        {
+            get => GetValue(StartPointProperty);
+            set => SetValue(StartPointProperty, value);   
         }
         public DiagramElementControl()
         {

@@ -5,22 +5,25 @@
 	
     <Design.PreviewWith>
         <Border Padding="20">
-			<controls:DiagramElementControl Name="test" IsInterface="true"/>
+			<controls:DiagramElementControl Name="test" IsInterface="true" Height="400" Width="400"/>
         </Border>
     </Design.PreviewWith>
 
 	<Styles.Resources>
 		<local:IsInterfaceToStringConverter x:Key="isInterfaceToStringConverter"/>
 		<local:VisibilityToSignConverter x:Key="visibilityToSignConverter"/>
+		<local:RightEllipsePointXConverter x:Key="rightEllipsePointXConverter"/>
+		<local:LeftEllipsePointXConverter x:Key="leftEllipsePointXConverter"/>
+		<local:EllipsePointYConverter x:Key="ellipsePointYConverter"/>
 	</Styles.Resources>
 
 	<Style Selector="controls|DiagramElementControl">
 		<!-- Set Defaults -->
 		<Setter Property="Template">
 			<ControlTemplate>
-				<Canvas Name="DiagramElement" Height="110" Width="110" Background="White">
+				<Canvas Name="DiagramElement" Height="{TemplateBinding Height}" Width="{TemplateBinding Width}" Background="White">
 
-					<Border BorderBrush="Black" BorderThickness="1" Width="100" Height="100">
+					<Border BorderBrush="Black" BorderThickness="1" Width="{TemplateBinding Width}" Height="{TemplateBinding Height}">
 						<StackPanel>
 							<Border BorderBrush="Black" BorderThickness="1">
 								<StackPanel>
@@ -30,7 +33,7 @@
 								</StackPanel>
 							</Border>
 							<Border BorderBrush="Black" BorderThickness="1">
-								<DataGrid Items="{TemplateBinding Attributes}">
+								<DataGrid IsReadOnly="True" HeadersVisibility="None" Items="{TemplateBinding Attributes}">
 									<DataGrid.Columns>
 										<DataGridTextColumn Header="Stereotype" Binding="{Binding Stereotype}"/>
 										<DataGridTextColumn Header="Visibility" 
@@ -48,13 +51,18 @@
 					
 					<Ellipse Width="10" Height="10" Fill="DarkGreen">
 						<Ellipse.RenderTransform>
-							<TranslateTransform X="2.5" Y="49"/>
+							<TransformGroup>
+								<TranslateTransform X="{TemplateBinding StartPoint, Converter={StaticResource leftEllipsePointXConverter}}"
+													Y="{TemplateBinding StartPoint, Converter={StaticResource ellipsePointYConverter}, ConverterParameter={TemplateBinding Height}}"/>
+							</TransformGroup>
 						</Ellipse.RenderTransform>
 					</Ellipse>
 					
 					<Ellipse Width="10" Height="10" Fill="DarkGreen">
 						<Ellipse.RenderTransform>
-							<TranslateTransform X="100" Y="49"/>
+							<TransformGroup>
+								<TranslateTransform X="100" Y="49"/>
+							</TransformGroup>
 						</Ellipse.RenderTransform>
 					</Ellipse>
 					

@@ -14,12 +14,16 @@ namespace DiagramEditor.Models.DiagramObjects
     {
         public DiagramElement() 
         {
-           /* isInterface = false;
-            stereotype = "stereo";
-            visibility = "visibility";
-            attributes = new ObservableCollection<DiagramElementAttribute> { };
-            operations = new ObservableCollection<DiagramElementOperation> { };
-            startPoint = new Point(50, 50); */
+            /* isInterface = false;
+             stereotype = "stereo";
+             visibility = "visibility";
+             attributes = new ObservableCollection<DiagramElementAttribute> { };
+             operations = new ObservableCollection<DiagramElementOperation> { };
+             startPoint = new Point(50, 50); */
+            width = 100;
+            height = 100;
+            leftEllipsePoint = new Point(startPoint.X, startPoint.Y + height / 2);
+            rightEllipsePoint = new Point(startPoint.X + width / 2, startPoint.Y + height / 2);
         }
         private string name;
         public string Name
@@ -68,6 +72,29 @@ namespace DiagramEditor.Models.DiagramObjects
             get => startPoint;
             set => this.SetAndRaise(ref startPoint, value);
         }
-
+        private int height;
+        public int Height
+        {
+            get => height;
+            set => this.SetAndRaise(ref height, value);
+        }
+        private int width;
+        public int Width
+        {
+            get => width;
+            set => this.SetAndRaise(ref width, value);
+        }
+        private Point leftEllipsePoint;
+        public Point LeftEllipsePoint
+        {
+            get => leftEllipsePoint;
+            set => this.SetAndRaise(ref leftEllipsePoint, value);
+        }
+        private Point rightEllipsePoint;
+        public Point RightEllipsePoint
+        {
+            get => rightEllipsePoint;
+            set => this.SetAndRaise(ref rightEllipsePoint, value);
+        }
     }
 }
