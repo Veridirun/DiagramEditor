@@ -6,11 +6,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Avalonia;
+using DynamicData.Binding;
 using ReactiveUI;
 
 namespace DiagramEditor.Models.DiagramObjects
 {
-    public class DiagramElement : DiagramBaseElement
+    public class DiagramElement : AbstractNotifyPropertyChanged, DiagramBaseElement
     {
         public DiagramElement() 
         {
@@ -66,11 +67,29 @@ namespace DiagramEditor.Models.DiagramObjects
             get => operations;
             set => this.SetAndRaise(ref operations, value);
         }
+
+        public event EventHandler<ChangeStartPointEventArgs> ChangeStartPoint;
         private Point startPoint;
         public Point StartPoint
         {
             get => startPoint;
-            set => this.SetAndRaise(ref startPoint, value);
+            set
+            {
+                Point oldPoint = StartPoint;
+
+                SetAndRaise(ref startPoint, value);
+
+                if (ChangeStartPoint != null)
+                {
+                    ChangeStartPointEventArgs args = new ChangeStartPointEventArgs
+                    {
+                        OldStartPoint = oldPoint,
+                        NewStartPoint = StartPoint
+                    };
+
+                    ChangeStartPoint(this, args);
+                }
+            }
         }
         private int height;
         public int Height
@@ -96,5 +115,6 @@ namespace DiagramEditor.Models.DiagramObjects
             get => rightEllipsePoint;
             set => this.SetAndRaise(ref rightEllipsePoint, value);
         }
+
     }
 }

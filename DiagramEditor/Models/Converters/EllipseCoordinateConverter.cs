@@ -9,17 +9,14 @@ using System.Threading.Tasks;
 
 namespace DiagramEditor.Models.Converters
 {
-    public class RightEllipsePointXConverter : IValueConverter
+    public class EllipseCoordinateConverter : IValueConverter
     {
         public object? Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
         {
-            if (value is Point point)
+            if (value is int num)
             {
-                if (parameter is int width)
-                {
-                    return point.X + width / 2;
-                }
-                return null;
+                
+                return num/2;
             }
             return null;
         }

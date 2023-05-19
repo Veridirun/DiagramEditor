@@ -5,25 +5,30 @@
 	
     <Design.PreviewWith>
         <Border Padding="20">
-			<controls:DiagramElementControl Name="test" IsInterface="true" Height="400" Width="400"/>
+			<controls:DiagramElementControl Name="test" IsInterface="true" ElementHeight="200" ElementWidth="200"/>
         </Border>
     </Design.PreviewWith>
 
 	<Styles.Resources>
 		<local:IsInterfaceToStringConverter x:Key="isInterfaceToStringConverter"/>
 		<local:VisibilityToSignConverter x:Key="visibilityToSignConverter"/>
-		<local:RightEllipsePointXConverter x:Key="rightEllipsePointXConverter"/>
-		<local:LeftEllipsePointXConverter x:Key="leftEllipsePointXConverter"/>
-		<local:EllipsePointYConverter x:Key="ellipsePointYConverter"/>
+		<local:StringQuotationAddConverter x:Key="stringQuotationAddConverter"/>
+		<local:EllipseCoordinateConverter x:Key="ellipseCoordinateConverter"/>
 	</Styles.Resources>
 
 	<Style Selector="controls|DiagramElementControl">
 		<!-- Set Defaults -->
 		<Setter Property="Template">
 			<ControlTemplate>
-				<Canvas Name="DiagramElement" Height="{TemplateBinding Height}" Width="{TemplateBinding Width}" Background="White">
+				<Canvas Name="DiagramElement" Height="{TemplateBinding ElementHeight}" Width="{TemplateBinding ElementWidth}" Background="Orange">
 
-					<Border BorderBrush="Black" BorderThickness="1" Width="{TemplateBinding Width}" Height="{TemplateBinding Height}">
+					<!--
+					<Rectangle ZIndex="1" Fill="Transparent" Stroke="Transparent"
+							   Height="{Binding $parent.Height}" Width="{Binding $parent.Width}">
+						
+					</Rectangle>
+					-->
+					<Border ZIndex="0" BorderBrush="Black" BorderThickness="1" Height="{Binding $parent.Height}" Width="{Binding $parent.Width}">
 						<StackPanel>
 							<Border BorderBrush="Black" BorderThickness="1">
 								<StackPanel>
@@ -33,9 +38,10 @@
 								</StackPanel>
 							</Border>
 							<Border BorderBrush="Black" BorderThickness="1">
-								<DataGrid IsReadOnly="True" HeadersVisibility="None" Items="{TemplateBinding Attributes}">
+								<DataGrid IsReadOnly="True" HeadersVisibility="None" 
+										  Items="{TemplateBinding Attributes}">
 									<DataGrid.Columns>
-										<DataGridTextColumn Header="Stereotype" Binding="{Binding Stereotype}"/>
+										<DataGridTextColumn Header="Stereotype" Binding="{Binding Stereotype, Converter={StaticResource stringQuotationAddConverter}}"/>
 										<DataGridTextColumn Header="Visibility" 
 															Binding="{Binding Visibility, Converter={StaticResource visibilityToSignConverter}}" />
 										<DataGridTextColumn Header="Name" Binding="{Binding Name}" />
@@ -44,27 +50,15 @@
 								</DataGrid>
 							</Border>
 						</StackPanel>
-						<Border.RenderTransform>
-							<TranslateTransform X="5" Y="5"/>
-						</Border.RenderTransform>
+						
 					</Border>
-					
-					<Ellipse Width="10" Height="10" Fill="DarkGreen">
-						<Ellipse.RenderTransform>
-							<TransformGroup>
-								<TranslateTransform X="{TemplateBinding StartPoint, Converter={StaticResource leftEllipsePointXConverter}}"
-													Y="{TemplateBinding StartPoint, Converter={StaticResource ellipsePointYConverter}, ConverterParameter={TemplateBinding Height}}"/>
-							</TransformGroup>
-						</Ellipse.RenderTransform>
-					</Ellipse>
-					
-					<Ellipse Width="10" Height="10" Fill="DarkGreen">
-						<Ellipse.RenderTransform>
-							<TransformGroup>
-								<TranslateTransform X="100" Y="49"/>
-							</TransformGroup>
-						</Ellipse.RenderTransform>
-					</Ellipse>
+
+					<Ellipse ZIndex="2" Width="10" Height="10" Fill="DarkGreen" Canvas.Left="{TemplateBinding ElementHeight, Converter={StaticResource ellipseCoordinateConverter}}"/>
+					<Ellipse ZIndex="2" Width="10" Height="10" Fill="DarkGreen" Canvas.Bottom="{TemplateBinding ElementWidth, Converter={StaticResource ellipseCoordinateConverter}}"/>
+					<Ellipse ZIndex="2" Width="10" Height="10" Fill="DarkGreen" Canvas.Bottom="{TemplateBinding ElementWidth, Converter={StaticResource ellipseCoordinateConverter}}" 
+																				Canvas.Right="0"/>
+					<Ellipse ZIndex="2" Width="10" Height="10" Fill="DarkGreen" Canvas.Bottom="0"
+																				Canvas.Right="{TemplateBinding ElementHeight, Converter={StaticResource ellipseCoordinateConverter}}"/>
 					
 				</Canvas>
 			</ControlTemplate>

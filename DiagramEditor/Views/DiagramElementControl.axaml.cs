@@ -35,6 +35,20 @@ namespace DiagramEditor.Views
             get => GetValue(StartPointProperty);
             set => SetValue(StartPointProperty, value);   
         }
+        public static readonly StyledProperty<int> ElementHeightProperty =
+            AvaloniaProperty.Register<DiagramElementControl, int>("ElementHeight");
+        public int ElementHeight
+        {
+            get => GetValue(ElementHeightProperty);
+            set => SetValue(ElementHeightProperty, value);
+        }
+        public static readonly StyledProperty<int> ElementWidthProperty =
+            AvaloniaProperty.Register<DiagramElementControl, int>("ElementWidth");
+        public int ElementWidth
+        {
+            get => GetValue(ElementWidthProperty);
+            set => SetValue(ElementWidthProperty, value);
+        }
         public DiagramElementControl()
         {
             

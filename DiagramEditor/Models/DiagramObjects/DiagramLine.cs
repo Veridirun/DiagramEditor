@@ -1,4 +1,6 @@
-﻿using DynamicData.Binding;
+﻿using Avalonia;
+using Avalonia.Controls.Shapes;
+using DynamicData.Binding;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,7 +9,8 @@ using System.Threading.Tasks;
 
 namespace DiagramEditor.Models.DiagramObjects
 {
-    public interface DiagramBaseElement
+    public class DiagramLine : DiagramBaseLine
     {
+        
     }
 }

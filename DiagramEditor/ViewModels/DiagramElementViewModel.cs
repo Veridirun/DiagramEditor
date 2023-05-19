@@ -36,11 +36,50 @@ namespace DiagramEditor.ViewModels
         bool option3Enabled;
         public bool Option3Enabled
         {
-            get => option1Enabled;
+            get => option3Enabled;
             set
             {
                 this.RaiseAndSetIfChanged(ref option3Enabled, value);
             }
+        }
+
+
+        bool option4Enabled;
+        public bool Option4Enabled
+        {
+            get => option4Enabled;
+            set
+            {
+                this.RaiseAndSetIfChanged(ref option4Enabled, value);
+            }
+        }
+        bool option5Enabled;
+        public bool Option5Enabled
+        {
+            get => option5Enabled;
+            set
+            {
+                this.RaiseAndSetIfChanged(ref option5Enabled, value);
+            }
+        }
+        bool option6Enabled;
+        public bool Option6Enabled
+        {
+            get => option6Enabled;
+            set
+            {
+                this.RaiseAndSetIfChanged(ref option6Enabled, value);
+            }
+        }
+        public int GetOption()
+        {
+            if (option1Enabled) {  return 0; }
+            if (option2Enabled) {  return 1; }
+            if (option3Enabled) {  return 1; }
+            if (option4Enabled) {  return 0; }
+            if (option5Enabled) {  return 0; }
+            if (option6Enabled) {  return 0; }
+            return 0;
         }
         public override Unit ClearElement()
         {

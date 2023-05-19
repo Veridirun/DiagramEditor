@@ -4,6 +4,7 @@ using ReactiveUI;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Reactive;
 using System.Reflection.Metadata;
 using System.Text;
 using System.Xml.Linq;
@@ -31,9 +32,33 @@ namespace DiagramEditor.ViewModels
                 this.RaiseAndSetIfChanged(ref testAttributes, value);
             }
         }
+        public ReactiveCommand<Unit, DiagramElement> buttonAdd { get; }
+
+        private DiagramElementViewModel content;
+        public DiagramElementViewModel Content
+        {
+            get => content;
+        }
+        public int GetLineType()
+        {
+            return content.GetOption();
+        }
         public MainWindowViewModel()
         {
-
+            content = new DiagramElementViewModel();
+            buttonAdd = ReactiveCommand.Create<Unit, DiagramElement>(_ =>
+            {
+                ElementCollection.Add(new DiagramElement
+                {
+                    StartPoint = new Avalonia.Point(100, 100),
+                    Name = "test",
+                    IsInterface = true,
+                    Attributes = TestAttributes,
+                    Height = 200,
+                    Width = 200
+                });
+                return null;
+            });
             TestAttributes = new ObservableCollection<DiagramElementAttribute>();
             TestAttributes.Add(new DiagramElementAttribute
             {
@@ -64,6 +89,8 @@ namespace DiagramEditor.ViewModels
                 Name = "test",
                 IsInterface = true,
                 Attributes = TestAttributes,
+                Height = 200,
+                Width = 200
             });
         }
     }

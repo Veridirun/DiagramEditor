@@ -1,5 +1,4 @@
-﻿using Avalonia;
-using Avalonia.Data.Converters;
+﻿using Avalonia.Data.Converters;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -9,16 +8,14 @@ using System.Threading.Tasks;
 
 namespace DiagramEditor.Models.Converters
 {
-    public class EllipsePointYConverter : IValueConverter
+    public class StringQuotationAddConverter : IValueConverter
     {
         public object? Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
         {
-            if (value is Point point)
+            if (value is string str)
             {
-                if(parameter is int height)
-                {
-                    return point.Y + height / 2;
-                }
+                if(str != "")
+                    return "«" + str + "»";
                 return null;
             }
             return null;
