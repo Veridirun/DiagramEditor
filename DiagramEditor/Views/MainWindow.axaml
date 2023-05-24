@@ -81,26 +81,27 @@
 
 					<DataTemplate DataType="{x:Type	models:DiagramInheritanceLine}">
 						<Canvas>
-						<Line StartPoint="{Binding StartPoint}"
-							  EndPoint="{Binding EndPoint}"
-							  Stroke="Black"
-							  StrokeThickness="2"/>
-						<Polygon Points="70,0 50,50 0,30"
-							  Stroke="Black"
-							  StrokeThickness="2"
-							  Fill="White">
-							<Polygon.RenderTransform>
-								<TransformGroup>
-									<RotateTransform Angle="{Binding Angle}"
-													 CenterX="{Binding EndPoint.X, Converter={StaticResource doubleIntConverter}}"
-													 CenterY="{Binding EndPoint.Y, Converter={StaticResource doubleIntConverter}}"/>
-									<TranslateTransform X="{Binding EndPoint.X, Converter={StaticResource doubleIntConverter}}"
-														Y="{Binding EndPoint.Y, Converter={StaticResource doubleIntConverter}}"/>
-								</TransformGroup>
-							</Polygon.RenderTransform>
-						</Polygon>
-							</Canvas>
+							<Line StartPoint="{Binding StartPoint}"
+								  EndPoint="{Binding EndPoint}"
+								  Stroke="Black"
+								  StrokeThickness="2"/>
+							<Polygon Points="0,0 15,30 30,0"
+								  Stroke="Black"
+								  StrokeThickness="2"
+								  Fill="White">
+								<Polygon.RenderTransform>
+									<TransformGroup>
+										<RotateTransform Angle="{Binding Angle}"
+														 CenterX="{Binding EndPoint.X, Converter={StaticResource doubleIntConverter}}"
+														 CenterY="{Binding EndPoint.Y, Converter={StaticResource doubleIntConverter}}"/>
+										<TranslateTransform X="{Binding EndPoint.X, Converter={StaticResource doubleIntConverter}}"
+															Y="{Binding EndPoint.Y, Converter={StaticResource doubleIntConverter}}"/>
+									</TransformGroup>
+								</Polygon.RenderTransform>
+							</Polygon>
+						</Canvas>
 					</DataTemplate>
+					
 					<DataTemplate DataType="{x:Type models:DiagramRealisationLine}">
 						<Line StartPoint="{Binding StartPoint}"
 							  EndPoint="{Binding EndPoint}"

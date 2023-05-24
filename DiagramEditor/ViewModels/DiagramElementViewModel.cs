@@ -73,7 +73,7 @@ namespace DiagramEditor.ViewModels
             if (option4Enabled) { return 4; }
             if (option5Enabled) { return 5; }
             if (option6Enabled) { return 6; }
-            return 0;
+            return 1;
         }
         public override Unit ClearElement()
         {
