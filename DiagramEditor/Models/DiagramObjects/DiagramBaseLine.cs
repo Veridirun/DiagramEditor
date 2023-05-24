@@ -1,11 +1,6 @@
 ﻿using Avalonia;
-using Avalonia.Controls.Shapes;
 using DynamicData.Binding;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DiagramEditor.Models.DiagramObjects
 {
@@ -15,6 +10,17 @@ namespace DiagramEditor.Models.DiagramObjects
         private Point endPoint;
         private DiagramElement firstElement;
         private DiagramElement secondElement;
+
+        private double angle;
+        public double Angle
+        {
+            get 
+            {
+                angle = (endPoint.Y - startPoint.Y) / (endPoint.X - startPoint.X);
+                return angle;
+            }
+            set => SetAndRaise(ref angle, value);
+        }
         public string Name { get; set; }
         public Point StartPoint
         {

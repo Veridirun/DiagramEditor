@@ -1,10 +1,7 @@
 using Avalonia;
-using Avalonia.Controls;
 using Avalonia.Controls.Primitives;
 using DiagramEditor.Models.DiagramObjects;
 using System.Collections.ObjectModel;
-using ReactiveUI;
-using DynamicData.Diagnostics;
 
 namespace DiagramEditor.Views
 {
@@ -33,7 +30,7 @@ namespace DiagramEditor.Views
         public Point StartPoint
         {
             get => GetValue(StartPointProperty);
-            set => SetValue(StartPointProperty, value);   
+            set => SetValue(StartPointProperty, value);
         }
         public static readonly StyledProperty<int> ElementHeightProperty =
             AvaloniaProperty.Register<DiagramElementControl, int>("ElementHeight");
@@ -51,7 +48,7 @@ namespace DiagramEditor.Views
         }
         public DiagramElementControl()
         {
-            
+
         }
 
     }

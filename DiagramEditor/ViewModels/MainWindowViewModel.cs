@@ -1,19 +1,14 @@
+using Avalonia;
 using DiagramEditor.Models.DiagramObjects;
-using DiagramEditor.ViewModels;
 using ReactiveUI;
-using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Reactive;
-using System.Reflection.Metadata;
-using System.Text;
-using System.Xml.Linq;
 
 namespace DiagramEditor.ViewModels
 {
     public class MainWindowViewModel : ViewModelBase
     {
-        
+
         private ObservableCollection<DiagramBaseElement> elementCollection;
         public ObservableCollection<DiagramBaseElement> ElementCollection
         {
@@ -92,6 +87,71 @@ namespace DiagramEditor.ViewModels
                 Height = 200,
                 Width = 200
             });
+        }
+
+        public void CreateLine(DiagramElement diagram, Point pointPointerPressed)
+        {
+            int lineType = GetLineType();
+
+            switch (lineType)
+            {
+                case 1:
+                    ElementCollection.Add(new DiagramInheritanceLine
+                    {
+                        StartPoint = pointPointerPressed,
+                        EndPoint = pointPointerPressed,
+                        Name = "InheritanceLine",
+                        FirstElement = diagram
+                    });
+                    break;
+                case 2:
+                    ElementCollection.Add(new DiagramRealisationLine
+                    {
+                        StartPoint = pointPointerPressed,
+                        EndPoint = pointPointerPressed,
+                        Name = "RealisationLine",
+                        FirstElement = diagram
+                    });
+                    break;
+                case 3:
+                    ElementCollection.Add(new DiagramDependencyLine
+                    {
+                        StartPoint = pointPointerPressed,
+                        EndPoint = pointPointerPressed,
+                        Name = "DependencyLine",
+                        FirstElement = diagram
+                    });
+                    break;
+                case 4:
+                    ElementCollection.Add(new DiagramAggregationLine
+                    {
+                        StartPoint = pointPointerPressed,
+                        EndPoint = pointPointerPressed,
+                        Name = "AggregationLine",
+                        FirstElement = diagram
+                    });
+                    break;
+                case 5:
+                    ElementCollection.Add(new DiagramCompositionLine
+                    {
+                        StartPoint = pointPointerPressed,
+                        EndPoint = pointPointerPressed,
+                        Name = "CompositionLine",
+                        FirstElement = diagram
+                    });
+                    break;
+                case 6:
+                    ElementCollection.Add(new DiagramAssociationLine
+                    {
+                        StartPoint = pointPointerPressed,
+                        EndPoint = pointPointerPressed,
+                        Name = "AssociationLine",
+                        FirstElement = diagram
+                    });
+                    break;
+                default:
+                    break;
+            }
         }
     }
 

@@ -1,14 +1,12 @@
-using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Controls.Shapes;
 using Avalonia.Input;
 using Avalonia.VisualTree;
-using DiagramEditor.ViewModels;
 using DiagramEditor.Models.DiagramObjects;
-using System.Linq;
-using System.Drawing;
-using Point = Avalonia.Point;
+using DiagramEditor.ViewModels;
 using System.Diagnostics;
+using System.Linq;
+using Point = Avalonia.Point;
 
 namespace DiagramEditor.Views
 {
@@ -44,16 +42,8 @@ namespace DiagramEditor.Views
                     {
                         if (this.DataContext is MainWindowViewModel viewModel) //if ellipse
                         {
-                            
-                            //viewModel.ElementCollection.Add(new DiagramLine
-                            viewModel.ElementCollection.Add(new DiagramDottedLine
-                            {
-                                StartPoint = pointPointerPressed,
-                                EndPoint = pointPointerPressed,
-                                Name= "test123",
-                                FirstElement = diagram
-                            });;
 
+                            viewModel.CreateLine(diagram, pointPointerPressed);
 
                             this.PointerMoved += PointerMoveDrawLine;
                             this.PointerReleased += PointerPressedReleasedDrawLine;
@@ -92,8 +82,7 @@ namespace DiagramEditor.Views
             if (this.DataContext is MainWindowViewModel viewModel)
             {
                 Debug.WriteLine(sender);
-                //DiagramLine connector = viewModel.ElementCollection[viewModel.ElementCollection.Count - 1] as DiagramLine;
-                DiagramDottedLine connector = viewModel.ElementCollection[viewModel.ElementCollection.Count - 1] as DiagramDottedLine;
+                DiagramBaseLine connector = viewModel.ElementCollection[viewModel.ElementCollection.Count - 1] as DiagramBaseLine;
                 Point currentPointerPosition = pointerEventArgs
                     .GetPosition(
                     this.GetVisualDescendants()
@@ -103,7 +92,6 @@ namespace DiagramEditor.Views
                 connector.EndPoint = new Point(
                         currentPointerPosition.X - 1,
                         currentPointerPosition.Y - 1);
-                connector.UpdateLineList();
             }
         }
         private void PointerPressedReleasedDrawLine(object? sender,
@@ -126,8 +114,7 @@ namespace DiagramEditor.Views
             {
                 if (ellipse.DataContext is DiagramElement diagram)
                 {
-                    //DiagramLine connector = viewModel.ElementCollection[viewModel.ElementCollection.Count - 1] as DiagramLine;
-                    DiagramDottedLine connector = viewModel.ElementCollection[viewModel.ElementCollection.Count - 1] as DiagramDottedLine;
+                    DiagramBaseLine connector = viewModel.ElementCollection[viewModel.ElementCollection.Count - 1] as DiagramBaseLine;
                     connector.SecondElement = diagram;
                     return;
                 }

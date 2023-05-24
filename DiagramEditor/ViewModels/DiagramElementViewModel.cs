@@ -1,13 +1,7 @@
-﻿using Avalonia.Controls;
-using DiagramEditor.Models.DiagramObjects;
-using System;
+﻿using DiagramEditor.Models.DiagramObjects;
 using ReactiveUI;
-using System.Collections.ObjectModel;
-using System.Collections.Generic;
-using System.Linq;
+using System;
 using System.Reactive;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DiagramEditor.ViewModels
 {
@@ -73,12 +67,12 @@ namespace DiagramEditor.ViewModels
         }
         public int GetOption()
         {
-            if (option1Enabled) {  return 0; }
-            if (option2Enabled) {  return 1; }
-            if (option3Enabled) {  return 1; }
-            if (option4Enabled) {  return 0; }
-            if (option5Enabled) {  return 0; }
-            if (option6Enabled) {  return 0; }
+            if (option1Enabled) { return 1; }
+            if (option2Enabled) { return 2; }
+            if (option3Enabled) { return 3; }
+            if (option4Enabled) { return 4; }
+            if (option5Enabled) { return 5; }
+            if (option6Enabled) { return 6; }
             return 0;
         }
         public override Unit ClearElement()

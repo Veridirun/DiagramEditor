@@ -6,6 +6,7 @@
         mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
 		xmlns:views="clr-namespace:DiagramEditor.Views"
 		xmlns:models="clr-namespace:DiagramEditor.Models.DiagramObjects;assembly=DiagramEditor"
+		xmlns:conv="clr-namespace:DiagramEditor.Models.Converters"
         x:Class="DiagramEditor.Views.MainWindow"
         Icon="/Assets/avalonia-logo.ico"
         Title="DiagramEditor">
@@ -13,6 +14,10 @@
     <Design.DataContext>
         <vm:MainWindowViewModel/>
     </Design.DataContext>
+	
+	<Window.Resources>
+		<conv:DoubleIntConverter x:Key="doubleIntConverter"/>
+	</Window.Resources>
 
 	<Grid ShowGridLines="False" RowDefinitions="29, *" >
 		<Border BorderBrush="Black" BorderThickness="2" Grid.Row="0">
@@ -74,27 +79,61 @@
 						</views:DiagramElementControl>
 					</DataTemplate>
 
-					<DataTemplate DataType="{x:Type	models:DiagramLine}">
+					<DataTemplate DataType="{x:Type	models:DiagramInheritanceLine}">
+						<Canvas>
+						<Line StartPoint="{Binding StartPoint}"
+							  EndPoint="{Binding EndPoint}"
+							  Stroke="Black"
+							  StrokeThickness="2"/>
+						<Polygon Points="70,0 50,50 0,30"
+							  Stroke="Black"
+							  StrokeThickness="2"
+							  Fill="White">
+							<Polygon.RenderTransform>
+								<TransformGroup>
+									<RotateTransform Angle="{Binding Angle}"
+													 CenterX="{Binding EndPoint.X, Converter={StaticResource doubleIntConverter}}"
+													 CenterY="{Binding EndPoint.Y, Converter={StaticResource doubleIntConverter}}"/>
+									<TranslateTransform X="{Binding EndPoint.X, Converter={StaticResource doubleIntConverter}}"
+														Y="{Binding EndPoint.Y, Converter={StaticResource doubleIntConverter}}"/>
+								</TransformGroup>
+							</Polygon.RenderTransform>
+						</Polygon>
+							</Canvas>
+					</DataTemplate>
+					<DataTemplate DataType="{x:Type models:DiagramRealisationLine}">
+						<Line StartPoint="{Binding StartPoint}"
+							  EndPoint="{Binding EndPoint}"
+							  Stroke="Black"
+							  StrokeThickness="2"
+							  StrokeDashArray="5,5"/>
+					</DataTemplate>
+					<DataTemplate DataType="{x:Type models:DiagramDependencyLine}">
+						<Line StartPoint="{Binding StartPoint}"
+							  EndPoint="{Binding EndPoint}"
+							  Stroke="Black"
+							  StrokeThickness="2"
+							  StrokeDashArray="5,5"/>
+					</DataTemplate>
+					<DataTemplate DataType="{x:Type	models:DiagramAggregationLine}">
 						<Line StartPoint="{Binding StartPoint}"
 							  EndPoint="{Binding EndPoint}"
 							  Stroke="Black"
 							  StrokeThickness="2"/>
 					</DataTemplate>
-
-					<DataTemplate DataType="{x:Type models:DiagramDottedLine}">
-						
-						<ListBox Items="{Binding DottedLineList}">
-							<ListBox.ItemTemplate>
-								<DataTemplate>
-									<Line StartPoint="{Binding StartPoint}"
-									  EndPoint="{Binding EndPoint}"
-									  Stroke="Black"
-									  StrokeThickness="2"/>
-								</DataTemplate>
-							</ListBox.ItemTemplate>
-						</ListBox>
-						
+					<DataTemplate DataType="{x:Type	models:DiagramCompositionLine}">
+						<Line StartPoint="{Binding StartPoint}"
+							  EndPoint="{Binding EndPoint}"
+							  Stroke="Black"
+							  StrokeThickness="2"/>
 					</DataTemplate>
+					<DataTemplate DataType="{x:Type	models:DiagramAssociationLine}">
+						<Line StartPoint="{Binding StartPoint}"
+							  EndPoint="{Binding EndPoint}"
+							  Stroke="Black"
+							  StrokeThickness="2"/>
+					</DataTemplate>
+					
 					
 				</ItemsControl.DataTemplates>
 			</ItemsControl> 

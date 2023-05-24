@@ -1,10 +1,6 @@
 ﻿using Avalonia.Data.Converters;
 using System;
-using System.Collections.Generic;
 using System.Globalization;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DiagramEditor.Models.Converters
 {
@@ -14,7 +10,7 @@ namespace DiagramEditor.Models.Converters
         {
             if (value != null)
             {
-                if(value is string val)
+                if (value is string val)
                 {
                     switch (val)
                     {
@@ -33,7 +29,7 @@ namespace DiagramEditor.Models.Converters
                 }
                 return null;
             }
-            else 
+            else
                 return null;
         }
 

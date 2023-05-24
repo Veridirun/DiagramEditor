@@ -1,19 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Drawing.Printing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Avalonia;
+﻿using Avalonia;
 using DynamicData.Binding;
-using ReactiveUI;
+using System;
+using System.Collections.ObjectModel;
 
 namespace DiagramEditor.Models.DiagramObjects
 {
     public class DiagramElement : AbstractNotifyPropertyChanged, DiagramBaseElement
     {
-        public DiagramElement() 
+        public DiagramElement()
         {
             /* isInterface = false;
              stereotype = "stereo";
@@ -59,7 +53,7 @@ namespace DiagramEditor.Models.DiagramObjects
             set
             {
                 this.SetAndRaise(ref attributes, value);
-            } 
+            }
         }
         private ObservableCollection<DiagramElementOperation> operations;
         public ObservableCollection<DiagramElementOperation> Operations
