@@ -11,15 +11,24 @@ namespace DiagramEditor.Models.DiagramObjects
         private DiagramElement firstElement;
         private DiagramElement secondElement;
 
+
         private double angle;
         public double Angle
         {
-            get 
-            {
-                angle = (endPoint.Y - startPoint.Y) / (endPoint.X - startPoint.X);
-                return angle;
-            }
+            get => angle;
             set => SetAndRaise(ref angle, value);
+        }
+
+        public void UpdateAngle()
+        {
+            double cos = (endPoint.X - startPoint.X) / Math.Sqrt(Math.Pow(endPoint.Y - startPoint.Y, 2) + Math.Pow(endPoint.X - startPoint.X, 2));
+
+            Angle = Math.Acos(cos)*180/Math.PI;
+
+            if (endPoint.Y < startPoint.Y)
+                Angle = -Angle;
+                
+            //System.Diagnostics.Debug.WriteLine("Angle={0}\n",Angle);
         }
         public string Name { get; set; }
         public Point StartPoint
@@ -80,6 +89,7 @@ namespace DiagramEditor.Models.DiagramObjects
         private void OnSecondElementPositionChanged(object? sender, ChangeStartPointEventArgs e)
         {
             EndPoint += e.NewStartPoint - e.OldStartPoint;
+            UpdateAngle();
         }
 
         public void Dispose()

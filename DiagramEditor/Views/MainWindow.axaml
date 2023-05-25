@@ -56,6 +56,7 @@
 			</Grid>
 
 			<ItemsControl Grid.Column="1"
+						  Name="mainCanvas"
 						  Width="{Binding $parent.Width}"
 						  Height="{Binding $parent.Height}"
 						  Items="{Binding ElementCollection}"
@@ -85,15 +86,15 @@
 								  EndPoint="{Binding EndPoint}"
 								  Stroke="Black"
 								  StrokeThickness="2"/>
-							<Polygon Points="0,0 15,30 30,0"
+							<Polygon Points="-15,-10 0,0 -15,10"
 								  Stroke="Black"
 								  StrokeThickness="2"
 								  Fill="White">
 								<Polygon.RenderTransform>
 									<TransformGroup>
 										<RotateTransform Angle="{Binding Angle}"
-														 CenterX="{Binding EndPoint.X, Converter={StaticResource doubleIntConverter}}"
-														 CenterY="{Binding EndPoint.Y, Converter={StaticResource doubleIntConverter}}"/>
+														 CenterX="1"
+														 CenterY="-5"/>
 										<TranslateTransform X="{Binding EndPoint.X, Converter={StaticResource doubleIntConverter}}"
 															Y="{Binding EndPoint.Y, Converter={StaticResource doubleIntConverter}}"/>
 									</TransformGroup>
@@ -103,36 +104,114 @@
 					</DataTemplate>
 					
 					<DataTemplate DataType="{x:Type models:DiagramRealisationLine}">
-						<Line StartPoint="{Binding StartPoint}"
-							  EndPoint="{Binding EndPoint}"
-							  Stroke="Black"
-							  StrokeThickness="2"
-							  StrokeDashArray="5,5"/>
+						<Canvas>
+							<Line StartPoint="{Binding StartPoint}"
+								  EndPoint="{Binding EndPoint}"
+								  Stroke="Black"
+								  StrokeThickness="2"
+								  StrokeDashArray="5,5"/>
+							<Polygon Points="-15,-10 0,0 -15,10"
+								  Stroke="Black"
+								  StrokeThickness="2"
+								  Fill="White">
+								<Polygon.RenderTransform>
+									<TransformGroup>
+										<RotateTransform Angle="{Binding Angle}"
+														 CenterX="1"
+														 CenterY="-5"/>
+										<TranslateTransform X="{Binding EndPoint.X, Converter={StaticResource doubleIntConverter}}"
+															Y="{Binding EndPoint.Y, Converter={StaticResource doubleIntConverter}}"/>
+									</TransformGroup>
+								</Polygon.RenderTransform>
+							</Polygon>
+						</Canvas>
 					</DataTemplate>
 					<DataTemplate DataType="{x:Type models:DiagramDependencyLine}">
-						<Line StartPoint="{Binding StartPoint}"
-							  EndPoint="{Binding EndPoint}"
-							  Stroke="Black"
-							  StrokeThickness="2"
-							  StrokeDashArray="5,5"/>
+						<Canvas>
+							<Line StartPoint="{Binding StartPoint}"
+								  EndPoint="{Binding EndPoint}"
+								  Stroke="Black"
+								  StrokeThickness="2"
+								  StrokeDashArray="5,5"/>
+							<Polyline Points="-15,-10 0,0 -15,10"
+								  Stroke="Black"
+								  StrokeThickness="2">
+								<Polyline.RenderTransform>
+									<TransformGroup>
+										<RotateTransform Angle="{Binding Angle}"
+														 CenterX="1"
+														 CenterY="-5"/>
+										<TranslateTransform X="{Binding EndPoint.X, Converter={StaticResource doubleIntConverter}}"
+															Y="{Binding EndPoint.Y, Converter={StaticResource doubleIntConverter}}"/>
+									</TransformGroup>
+								</Polyline.RenderTransform>
+							</Polyline>
+						</Canvas>
 					</DataTemplate>
 					<DataTemplate DataType="{x:Type	models:DiagramAggregationLine}">
-						<Line StartPoint="{Binding StartPoint}"
-							  EndPoint="{Binding EndPoint}"
-							  Stroke="Black"
-							  StrokeThickness="2"/>
+						<Canvas>
+							<Line StartPoint="{Binding StartPoint}"
+								  EndPoint="{Binding EndPoint}"
+								  Stroke="Black"
+								  StrokeThickness="2"/>
+							<Polygon Points="-15,-10 0,0 -15,10 -30,0"
+								  Stroke="Black"
+								  StrokeThickness="2"
+								  Fill="White">
+								<Polygon.RenderTransform>
+									<TransformGroup>
+										<RotateTransform Angle="{Binding Angle}"
+														 CenterX="1.5"
+														 CenterY="-4"/>
+										<TranslateTransform X="{Binding EndPoint.X, Converter={StaticResource doubleIntConverter}}"
+															Y="{Binding EndPoint.Y, Converter={StaticResource doubleIntConverter}}"/>
+									</TransformGroup>
+								</Polygon.RenderTransform>
+							</Polygon>
+						</Canvas>
 					</DataTemplate>
 					<DataTemplate DataType="{x:Type	models:DiagramCompositionLine}">
-						<Line StartPoint="{Binding StartPoint}"
-							  EndPoint="{Binding EndPoint}"
-							  Stroke="Black"
-							  StrokeThickness="2"/>
+						<Canvas>
+							<Line StartPoint="{Binding StartPoint}"
+								  EndPoint="{Binding EndPoint}"
+								  Stroke="Black"
+								  StrokeThickness="2"/>
+							<Polygon Points="-15,-10 0,0 -15,10 -30,0"
+								  Stroke="Black"
+								  StrokeThickness="2"
+								  Fill="Black">
+								<Polygon.RenderTransform>
+									<TransformGroup>
+										<RotateTransform Angle="{Binding Angle}"
+														 CenterX="1.5"
+														 CenterY="-4"/>
+										<TranslateTransform X="{Binding EndPoint.X, Converter={StaticResource doubleIntConverter}}"
+															Y="{Binding EndPoint.Y, Converter={StaticResource doubleIntConverter}}"/>
+									</TransformGroup>
+								</Polygon.RenderTransform>
+							</Polygon>
+						</Canvas>
 					</DataTemplate>
 					<DataTemplate DataType="{x:Type	models:DiagramAssociationLine}">
-						<Line StartPoint="{Binding StartPoint}"
-							  EndPoint="{Binding EndPoint}"
-							  Stroke="Black"
-							  StrokeThickness="2"/>
+						<Canvas>
+							<Line StartPoint="{Binding StartPoint}"
+								  EndPoint="{Binding EndPoint}"
+								  Stroke="Black"
+								  StrokeThickness="2"/>
+							<Polyline Points="-15,-10 0,0 -15,10"
+								  Stroke="Black"
+								  StrokeThickness="2">
+								<Polyline.RenderTransform>
+									<TransformGroup>
+										<RotateTransform Angle="{Binding Angle}"
+														 CenterX="1"
+														 CenterY="-5"/>
+										<TranslateTransform X="{Binding EndPoint.X, Converter={StaticResource doubleIntConverter}}"
+															Y="{Binding EndPoint.Y, Converter={StaticResource doubleIntConverter}}"/>
+									</TransformGroup>
+								</Polyline.RenderTransform>
+							</Polyline>
+						</Canvas>
 					</DataTemplate>
 					
 					

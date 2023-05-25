@@ -1,9 +1,11 @@
 using Avalonia.Controls;
 using Avalonia.Controls.Shapes;
 using Avalonia.Input;
+using Avalonia.LogicalTree;
 using Avalonia.VisualTree;
 using DiagramEditor.Models.DiagramObjects;
 using DiagramEditor.ViewModels;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using Point = Avalonia.Point;
@@ -67,6 +69,7 @@ namespace DiagramEditor.Views
                     element.StartPoint = new Point(
                         currentPointerPosition.X - pointerPositionIntoShape.X,
                         currentPointerPosition.Y - pointerPositionIntoShape.Y);
+                    
                 }
             }
         }
@@ -88,12 +91,14 @@ namespace DiagramEditor.Views
                     this.GetVisualDescendants()
                     .OfType<Canvas>()
                     .FirstOrDefault());
-
+                
                 connector.EndPoint = new Point(
                         currentPointerPosition.X - 1,
                         currentPointerPosition.Y - 1);
+                connector.UpdateAngle();
             }
         }
+
         private void PointerPressedReleasedDrawLine(object? sender,
             PointerReleasedEventArgs pointerReleasedEventArgs)
         {
@@ -106,19 +111,35 @@ namespace DiagramEditor.Views
                         canvas.Name.Equals("highLevelCanvas"));
 
             var coords = pointerReleasedEventArgs.GetPosition(canvas);
+            
 
-            var element = canvas.InputHitTest(coords);
+            List <Ellipse> ellipses = this.GetVisualDescendants().OfType<Ellipse>().ToList();
+            System.Diagnostics.Debug.WriteLine("amount of ellipses={0}", ellipses.Count());
+
             MainWindowViewModel viewModel = this.DataContext as MainWindowViewModel;
-
-            if (element is Ellipse ellipse)
+            foreach (Ellipse ellipse in ellipses)
             {
-                if (ellipse.DataContext is DiagramElement diagram)
+                if (ellipse.Bounds.Contains(coords))
                 {
-                    DiagramBaseLine connector = viewModel.ElementCollection[viewModel.ElementCollection.Count - 1] as DiagramBaseLine;
-                    connector.SecondElement = diagram;
-                    return;
+                    System.Diagnostics.Debug.WriteLine("Cursor on ellipse");
+                    if (ellipse.DataContext is DiagramElement diagram)
+                    {
+                        DiagramBaseLine connector = viewModel.ElementCollection[viewModel.ElementCollection.Count - 1] as DiagramBaseLine;
+                        connector.SecondElement = diagram;
+                        return;
+                    }
                 }
             }
+            //var element = canvas.InputHitTest(coords);
+            //if (element is Ellipse ellipse)
+            //{
+            //    if (ellipse.DataContext is DiagramElement diagram)
+            //    {
+            //        DiagramBaseLine connector = viewModel.ElementCollection[viewModel.ElementCollection.Count - 1] as DiagramBaseLine;
+            //        connector.SecondElement = diagram;
+            //        return;
+            //    }
+            //}
 
             viewModel.ElementCollection.RemoveAt(viewModel.ElementCollection.Count - 1);
         }
