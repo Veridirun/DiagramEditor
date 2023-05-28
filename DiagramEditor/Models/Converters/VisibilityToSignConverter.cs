@@ -12,6 +12,7 @@ namespace DiagramEditor.Models.Converters
             {
                 if (value is string val)
                 {
+                    val = val.Trim();
                     switch (val)
                     {
                         case "public":

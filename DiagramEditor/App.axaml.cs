@@ -1,6 +1,7 @@
 using Avalonia;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Markup.Xaml;
+using DiagramEditor.Models.Serializers;
 using DiagramEditor.ViewModels;
 using DiagramEditor.Views;
 
@@ -19,7 +20,15 @@ namespace DiagramEditor
             {
                 desktop.MainWindow = new MainWindow
                 {
-                    DataContext = new MainWindowViewModel(),
+                    DataContext = new MainWindowViewModel()
+                    {
+                        SaverLoaderFactoryCollection = new ISaverLoaderFactory[]
+                        {
+                            new XMLSaverLoaderFactory(),
+                            new JSONSaverLoaderFactory(),
+                            new YAMLSaverLoaderFactory(),
+                        }
+                    }
                 };
             }
 

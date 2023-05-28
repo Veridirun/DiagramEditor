@@ -6,11 +6,14 @@ namespace DiagramEditor.Models.DiagramObjects
 {
     public class DiagramBaseLine : AbstractNotifyPropertyChanged, DiagramBaseElement, IDisposable
     {
+        public DiagramBaseLine()
+        {
+            Angle = 90;
+        }
         private Point startPoint;
         private Point endPoint;
         private DiagramElement firstElement;
         private DiagramElement secondElement;
-
 
         private double angle;
         public double Angle
@@ -81,9 +84,29 @@ namespace DiagramEditor.Models.DiagramObjects
             }
         }
 
+        private int firstElementID;
+        public int FirstElementID
+        {
+            get => firstElementID;
+            set
+            {
+                firstElementID = value;
+            }
+        }
+        private int secondElementID;
+        public int SecondElementID
+        {
+            get => secondElementID;
+            set
+            {
+                secondElementID = value;
+            }
+        }
+
         private void OnFirstElementPositionChanged(object? sender, ChangeStartPointEventArgs e)
         {
             StartPoint += e.NewStartPoint - e.OldStartPoint;
+            UpdateAngle();
         }
 
         private void OnSecondElementPositionChanged(object? sender, ChangeStartPointEventArgs e)

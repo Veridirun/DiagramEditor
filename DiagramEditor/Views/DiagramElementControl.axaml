@@ -14,6 +14,7 @@
 		<local:VisibilityToSignConverter x:Key="visibilityToSignConverter"/>
 		<local:StringQuotationAddConverter x:Key="stringQuotationAddConverter"/>
 		<local:EllipseCoordinateConverter x:Key="ellipseCoordinateConverter"/>
+		<local:ColonConverter x:Key="colonConverter"/>
 	</Styles.Resources>
 
 	<Style Selector="controls|DiagramElementControl">
@@ -30,35 +31,53 @@
 					-->
 					<Border ZIndex="0" BorderBrush="Black" BorderThickness="1" Height="{Binding $parent.Height}" Width="{Binding $parent.Width}">
 						<StackPanel>
-							<Border BorderBrush="Black" BorderThickness="1">
+							
+							<Border BorderBrush="Black" BorderThickness="1"> <!--заголовок-->
 								<StackPanel>
 									<TextBlock Text="{TemplateBinding IsInterface, Converter={StaticResource isInterfaceToStringConverter}}"
 											   FontStyle="Italic" HorizontalAlignment="Center"/>
 									<TextBlock Text="{TemplateBinding Name}" FontWeight="Bold" HorizontalAlignment="Center"/>
 								</StackPanel>
 							</Border>
-							<Border BorderBrush="Black" BorderThickness="1">
-								<DataGrid IsReadOnly="True" HeadersVisibility="None" 
-										  Items="{TemplateBinding Attributes}">
-									<DataGrid.Columns>
-										<DataGridTextColumn Header="Stereotype" Binding="{Binding Stereotype, Converter={StaticResource stringQuotationAddConverter}}"/>
-										<DataGridTextColumn Header="Visibility" 
-															Binding="{Binding Visibility, Converter={StaticResource visibilityToSignConverter}}" />
-										<DataGridTextColumn Header="Name" Binding="{Binding Name}" />
-										<DataGridTextColumn Header="Type" Binding="{Binding Type}" />
-									</DataGrid.Columns>
-								</DataGrid>
-							</Border>
+							<Grid RowDefinitions="auto,auto">
+								<Border Grid.Row="0" BorderBrush="Black" BorderThickness="1"><!--аттрибуты-->
+									<DataGrid VerticalScrollBarVisibility="1"
+											  IsReadOnly="True" HeadersVisibility="None" 
+											  Items="{TemplateBinding Attributes}">
+										<DataGrid.Columns>
+											<DataGridTextColumn Header="Visibility" 
+																Binding="{Binding Visibility, Converter={StaticResource visibilityToSignConverter}}" />
+											<DataGridTextColumn Header="Stereotype" Binding="{Binding Stereotype, Converter={StaticResource stringQuotationAddConverter}}"/>
+											<DataGridTextColumn Header="Name" Binding="{Binding Name}" />
+											<DataGridTextColumn Header="Type" Binding="{Binding Type}" />
+										</DataGrid.Columns>
+									</DataGrid>
+								</Border>
+
+								<Border Grid.Row="1" BorderBrush="Black" BorderThickness="1"> <!--операции-->
+									<DataGrid VerticalScrollBarVisibility="1"
+											  IsReadOnly="True" HeadersVisibility="None"
+											  Items="{TemplateBinding Operations}">
+										<DataGrid.Columns>
+											<DataGridTextColumn Header="Visibility"
+																Binding="{Binding Visibility, Converter={StaticResource visibilityToSignConverter}}" />
+											<DataGridTextColumn Header="Name" Binding="{Binding Name}" />
+											<DataGridTextColumn Header="Colon" Binding="{Binding Name, Converter={StaticResource colonConverter}}"/>
+											<DataGridTextColumn Header="Type" Binding="{Binding Type}" />
+										</DataGrid.Columns>
+									</DataGrid>
+								</Border>
+							</Grid>
 						</StackPanel>
 						
 					</Border>
 
-					<Ellipse ZIndex="2" Width="10" Height="10" Fill="DarkGreen" Canvas.Left="{TemplateBinding ElementHeight, Converter={StaticResource ellipseCoordinateConverter}}"/>
-					<Ellipse ZIndex="2" Width="10" Height="10" Fill="DarkGreen" Canvas.Bottom="{TemplateBinding ElementWidth, Converter={StaticResource ellipseCoordinateConverter}}"/>
-					<Ellipse ZIndex="2" Width="10" Height="10" Fill="DarkGreen" Canvas.Bottom="{TemplateBinding ElementWidth, Converter={StaticResource ellipseCoordinateConverter}}" 
+					<Ellipse Name="topEllipse" ZIndex="2" Width="10" Height="10" Fill="DarkGreen" Canvas.Left="{TemplateBinding ElementWidth, Converter={StaticResource ellipseCoordinateConverter}}"/>
+					<Ellipse Name="leftEllipse" ZIndex="2" Width="10" Height="10" Fill="DarkGreen" Canvas.Bottom="{TemplateBinding ElementHeight, Converter={StaticResource ellipseCoordinateConverter}}"/>
+					<Ellipse Name="rightEllipse" ZIndex="2" Width="10" Height="10" Fill="DarkGreen" Canvas.Bottom="{TemplateBinding ElementHeight, Converter={StaticResource ellipseCoordinateConverter}}" 
 																				Canvas.Right="0"/>
-					<Ellipse ZIndex="2" Width="10" Height="10" Fill="DarkGreen" Canvas.Bottom="0"
-																				Canvas.Right="{TemplateBinding ElementHeight, Converter={StaticResource ellipseCoordinateConverter}}"/>
+					<Ellipse Name="bottomEllipse" ZIndex="2" Width="10" Height="10" Fill="DarkGreen" Canvas.Bottom="0"
+																				Canvas.Right="{TemplateBinding ElementWidth, Converter={StaticResource ellipseCoordinateConverter}}"/>
 					
 				</Canvas>
 			</ControlTemplate>

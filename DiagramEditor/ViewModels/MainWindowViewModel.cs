@@ -1,7 +1,10 @@
 using Avalonia;
 using DiagramEditor.Models.DiagramObjects;
+using DiagramEditor.Models.Serializers;
 using ReactiveUI;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Reactive;
 
 namespace DiagramEditor.ViewModels
@@ -27,6 +30,15 @@ namespace DiagramEditor.ViewModels
                 this.RaiseAndSetIfChanged(ref testAttributes, value);
             }
         }
+        private ObservableCollection<DiagramElementOperation> testOperations;
+        public ObservableCollection<DiagramElementOperation> TestOperations
+        {
+            get => testOperations;
+            set
+            {
+                this.RaiseAndSetIfChanged(ref testOperations, value);
+            }
+        }
         public ReactiveCommand<Unit, DiagramElement> buttonAdd { get; }
 
         private DiagramElementViewModel content;
@@ -45,15 +57,39 @@ namespace DiagramEditor.ViewModels
             {
                 ElementCollection.Add(new DiagramElement
                 {
+                    ID = FindMaxID()+1,
                     StartPoint = new Avalonia.Point(100, 100),
                     Name = "test",
                     IsInterface = true,
                     Attributes = TestAttributes,
+                    Operations = TestOperations,
                     Height = 200,
                     Width = 200
                 });
+                //System.Diagnostics.Debug.WriteLine("ID={0}\n", FindMaxID());
                 return null;
             });
+
+            TestOperations = new ObservableCollection<DiagramElementOperation>();
+            TestOperations.Add(new DiagramElementOperation
+            {
+                Name = "test1",
+                Visibility = "public",
+                Type = "int"
+            });
+            TestOperations.Add(new DiagramElementOperation
+            {
+                Name = "test2",
+                Visibility = "package",
+                Type = "string"
+            });
+            TestOperations.Add(new DiagramElementOperation
+            {
+                Name = "test3",
+                Visibility = "private",
+                Type = "decimal"
+            });
+
             TestAttributes = new ObservableCollection<DiagramElementAttribute>();
             TestAttributes.Add(new DiagramElementAttribute
             {
@@ -84,11 +120,15 @@ namespace DiagramEditor.ViewModels
                 Name = "test",
                 IsInterface = true,
                 Attributes = TestAttributes,
+                Operations = TestOperations,
                 Height = 200,
                 Width = 200
             });
         }
-
+        public void DeleteLine(DiagramBaseLine line)
+        {
+            ElementCollection.Remove(line);
+        }
         public void CreateLine(DiagramElement diagram, Point pointPointerPressed)
         {
             int lineType = GetLineType();
@@ -101,7 +141,8 @@ namespace DiagramEditor.ViewModels
                         StartPoint = pointPointerPressed,
                         EndPoint = pointPointerPressed,
                         Name = "InheritanceLine",
-                        FirstElement = diagram
+                        FirstElement = diagram,
+                        FirstElementID = diagram.ID
                     });
                     break;
                 case 2:
@@ -110,7 +151,8 @@ namespace DiagramEditor.ViewModels
                         StartPoint = pointPointerPressed,
                         EndPoint = pointPointerPressed,
                         Name = "RealisationLine",
-                        FirstElement = diagram
+                        FirstElement = diagram,
+                        FirstElementID = diagram.ID
                     });
                     break;
                 case 3:
@@ -119,7 +161,8 @@ namespace DiagramEditor.ViewModels
                         StartPoint = pointPointerPressed,
                         EndPoint = pointPointerPressed,
                         Name = "DependencyLine",
-                        FirstElement = diagram
+                        FirstElement = diagram,
+                        FirstElementID = diagram.ID
                     });
                     break;
                 case 4:
@@ -128,7 +171,8 @@ namespace DiagramEditor.ViewModels
                         StartPoint = pointPointerPressed,
                         EndPoint = pointPointerPressed,
                         Name = "AggregationLine",
-                        FirstElement = diagram
+                        FirstElement = diagram,
+                        FirstElementID = diagram.ID
                     });
                     break;
                 case 5:
@@ -137,7 +181,8 @@ namespace DiagramEditor.ViewModels
                         StartPoint = pointPointerPressed,
                         EndPoint = pointPointerPressed,
                         Name = "CompositionLine",
-                        FirstElement = diagram
+                        FirstElement = diagram,
+                        FirstElementID = diagram.ID
                     });
                     break;
                 case 6:
@@ -146,11 +191,49 @@ namespace DiagramEditor.ViewModels
                         StartPoint = pointPointerPressed,
                         EndPoint = pointPointerPressed,
                         Name = "AssociationLine",
-                        FirstElement = diagram
+                        FirstElement = diagram,
+                        FirstElementID = diagram.ID
                     });
                     break;
                 default:
                     break;
+            }
+        }
+        private int FindMaxID()
+        {
+            int max = -1;
+            foreach(var element in ElementCollection)
+            {
+                if(element is DiagramElement diagram)
+                    if (diagram.ID > max)
+                        max = diagram.ID;
+            }
+            return max;
+        }
+
+        public IEnumerable<ISaverLoaderFactory> SaverLoaderFactoryCollection { get; set; }
+        public void SaveCollection(string path)
+        {
+            IElementSaver? figureSaver = SaverLoaderFactoryCollection
+                .FirstOrDefault(factory => factory.IsMatch(path) == true)?
+                .CreateSaver();
+            if (figureSaver != null)
+            {
+                figureSaver.Save(ElementCollection, path);
+            }
+        }
+        public void LoadCollection(string path)
+        {
+            elementCollection = null;
+            elementCollection = new ObservableCollection<DiagramBaseElement>();
+
+
+            IElementLoader? figureLoader = SaverLoaderFactoryCollection
+                .FirstOrDefault(factory => factory.IsMatch(path) == true)?
+                .CreateLoader();
+            if (figureLoader != null)
+            {
+                ElementCollection = figureLoader.Load(ElementCollection, path);
             }
         }
     }

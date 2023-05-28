@@ -25,7 +25,7 @@
 				<Menu Name="menuExport" DockPanel.Dock="Top">
 					<MenuItem Header="_Экспортировать">
 						<MenuItem Header="_XML"/>
-						<MenuItem Header="_JSON"/>
+						<MenuItem Click="OnExportMenuClickJSON" Header="_JSON"/>
 						<MenuItem Header="_YAML"/>
 						<MenuItem Header="_PNG"/>
 						<Separator/>
@@ -33,7 +33,7 @@
 					</MenuItem>
 					<MenuItem Header="_Импортировать">
 						<MenuItem Header="_XML"/>
-						<MenuItem Header="_JSON"/>
+						<MenuItem Click="OnImportMenuClickJSON" Header="_JSON"/>
 						<MenuItem Header="_YAML"/>
 						<Separator/>
 						<MenuItem Header="_Закрыть"/>
@@ -72,6 +72,7 @@
 					<DataTemplate DataType="{x:Type	models:DiagramElement}">
 						<views:DiagramElementControl Name="{Binding Name}" IsInterface="{Binding IsInterface}"
 													 Attributes="{Binding Attributes}" StartPoint="{Binding StartPoint}"
+													 Operations="{Binding Operations}"
 													 ElementHeight="{Binding Height}" ElementWidth="{Binding Width}">
 							<views:DiagramElementControl.RenderTransform>
 								<TranslateTransform X="{Binding StartPoint.X}"

@@ -1,0 +1,122 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" d:DesignWidth="500" d:DesignHeight="500"
+        x:Class="DiagramEditor.Views.DiagramElementEditView"
+        Title="DiagramElementEditView"
+		xmlns:vm="using:DiagramEditor.ViewModels"
+		Width="500" Height="500">
+
+	<Design.DataContext>
+		<vm:DiagramElementEditViewModel/>
+	</Design.DataContext>
+
+	<Grid RowDefinitions="0.4*,*,*">
+		<Border BorderBrush="Black" BorderThickness="1">
+			<StackPanel>
+				<DockPanel>
+					<TextBlock Margin="5" VerticalAlignment="Center" Text="Название элемента:"/>
+					<TextBox Margin="5" Text="{Binding DiagramName}"/>
+				</DockPanel>
+				<DockPanel>
+					<TextBlock Margin="5" VerticalAlignment="Center" Text="Интерфейс:"/>
+					<CheckBox Margin="5" IsChecked="{Binding DiagramIsInterface}"/>
+					<TextBlock Margin="5" VerticalAlignment="Center" Text="Высота:"/>
+					<NumericUpDown Minimum="80" Maximum="400" Increment="25"
+                       VerticalAlignment="Center" Value="{Binding Height}"/>
+					<TextBlock Margin="5" VerticalAlignment="Center" Text="Ширина:"/>
+					<NumericUpDown Minimum="80" Maximum="400" Increment="25"
+                       VerticalAlignment="Center" Value="{Binding Width}"/>
+				</DockPanel>
+			</StackPanel>
+		</Border>
+		<Border BorderBrush="Black" BorderThickness="1" Grid.Row="1">
+			<Grid ColumnDefinitions="2*,*">
+				
+				<Grid Grid.Column="0" ColumnDefinitions="*, 2.5*" RowDefinitions="auto,auto,auto,auto,auto">
+					<TextBlock Margin="5" Grid.Column="0" Grid.Row="0" VerticalAlignment="Center" Text="Имя:"/>
+					<TextBox Margin="5" Grid.Column="1" Grid.Row="0" Text="{Binding AttributeName}"/>
+
+					<TextBlock Margin="5" Grid.Column="0" Grid.Row="1" VerticalAlignment="Center" Text="Тип:"/>
+					<TextBox Margin="5" Grid.Column="1" Grid.Row="1" Text="{Binding AttributeType}"/>
+
+					<TextBlock Margin="5" Grid.Column="0" Grid.Row="2" VerticalAlignment="Center" Text="Стереотип:"/>
+					<TextBox Margin="5" Grid.Column="1" Grid.Row="2" Text="{Binding AttributeStereotype}"/>
+						
+					<TextBlock Margin="5" Grid.Column="0" Grid.Row="3" VerticalAlignment="Center" Text="Видимость:"/>
+					<ComboBox Margin="5" Grid.Column="1" Grid.Row="3" SelectedIndex="{Binding AttributeVisibility}">
+						
+						<ComboBoxItem>
+							<TextBlock Text="public"></TextBlock>
+						</ComboBoxItem>
+						<ComboBoxItem>
+							<TextBlock Text="protected"></TextBlock>
+						</ComboBoxItem>
+						<ComboBoxItem>
+							<TextBlock Text="private"></TextBlock>
+						</ComboBoxItem>
+						<ComboBoxItem>
+							<TextBlock Text="package"></TextBlock>
+						</ComboBoxItem>
+					</ComboBox>
+					<Button Margin="5" Grid.ColumnSpan="2" Grid.Row="4" Content="Добавить" Command="{Binding buttonAttributeAdd}" />
+				</Grid>
+				
+				<ListBox Grid.Column="1" Items="{Binding DiagramAttributes}">
+					<ListBox.ItemTemplate>
+						<DataTemplate>
+							<Grid ColumnDefinitions="3*, *">
+								<TextBlock Grid.Column="0" Text="{Binding Name}" />
+								<Button Grid.Column="1" Command="{Binding $parent[ListBox].DataContext.buttonAttributeRemove}" CommandParameter="{Binding}" Content="R"/>
+							</Grid>
+						</DataTemplate>
+					</ListBox.ItemTemplate>
+				</ListBox>
+			</Grid>
+		</Border>
+		
+		<Border BorderBrush="Black" BorderThickness="1" Grid.Row="2">
+			<Grid ColumnDefinitions="2*,*">
+				<Grid Grid.Column="0" ColumnDefinitions="*, 2.5*" RowDefinitions="auto,auto,auto,auto,auto">
+					<TextBlock Margin="5" Grid.Column="0" Grid.Row="0" VerticalAlignment="Center" Text="Имя:"/>
+					<TextBox Margin="5" Grid.Column="1" Grid.Row="0" Text="{Binding OperationName}"/>
+					
+					<TextBlock Margin="5" Grid.Column="0" Grid.Row="1" VerticalAlignment="Center" Text="Тип:"/>
+					<TextBox Margin="5" Grid.Column="1" Grid.Row="1" Text="{Binding OperationType}"/>
+					
+					<TextBlock Margin="5" Grid.Column="0" Grid.Row="2" VerticalAlignment="Center" Text="Видимость:"/>
+					<ComboBox Margin="5" Grid.Column="1" Grid.Row="2" SelectedIndex="{Binding OperationVisibility}">
+						<ComboBoxItem>
+							<TextBlock Text="public"></TextBlock>
+						</ComboBoxItem>
+						<ComboBoxItem>
+							<TextBlock Text="protected"></TextBlock>
+						</ComboBoxItem>
+						<ComboBoxItem>
+							<TextBlock Text="private"></TextBlock>
+						</ComboBoxItem>
+						<ComboBoxItem>
+							<TextBlock Text="package"></TextBlock>
+						</ComboBoxItem>
+					</ComboBox>
+					<Button Margin="5" Grid.ColumnSpan="2" Grid.Row="3" Content="Добавить" Command="{Binding buttonOperationAdd}" />
+					<Button Margin="5" Grid.ColumnSpan="2" Grid.Row="4" Content="Удалить элемент" Command="{Binding buttonElementRemove}" />
+				</Grid>
+				
+				<ListBox Grid.Column="1" Items="{Binding DiagramOperations}">
+					<ListBox.ItemTemplate>
+						<DataTemplate>
+							<Grid ColumnDefinitions="3*, *">
+								<TextBlock Grid.Column="0" Text="{Binding Name}" />
+								<Button Grid.Column="1" Command="{Binding $parent[ListBox].DataContext.buttonOperationRemove}" CommandParameter="{Binding}" Content="Remove"/>
+							</Grid>
+						</DataTemplate>
+					</ListBox.ItemTemplate>
+				</ListBox>
+				
+			</Grid>
+		</Border>
+	</Grid>
+	
+</Window>

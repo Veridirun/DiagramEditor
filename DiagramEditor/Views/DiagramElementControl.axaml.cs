@@ -16,6 +16,15 @@ namespace DiagramEditor.Views
             set => SetValue(AttributesProperty, value);
         }
 
+        public static readonly StyledProperty<ObservableCollection<DiagramElementOperation>> OperationsProperty =
+            AvaloniaProperty.Register<DiagramElementControl, ObservableCollection<DiagramElementOperation>>("Operations");
+
+        public ObservableCollection<DiagramElementOperation> Operations
+        {
+            get => GetValue(OperationsProperty);
+            set => SetValue(OperationsProperty, value);
+        }
+
         public static readonly StyledProperty<bool> IsInterfaceProperty =
             AvaloniaProperty.Register<DiagramElementControl, bool>("IsInterface");
         public bool IsInterface
