@@ -19,7 +19,7 @@ namespace DiagramEditor.Models.Serializers
         public void Save(IEnumerable<DiagramBaseElement> elements, string path)
         {
             var serializer = new SerializerBuilder()
-                /*
+                
                 .WithTagMapping("!DiagramAggregationLine", typeof(DiagramAggregationLine))
                 .WithTagMapping("!DiagramAssociationLine", typeof(DiagramAssociationLine))
                 .WithTagMapping("!DiagramCompositionLine", typeof(DiagramCompositionLine))
@@ -29,11 +29,12 @@ namespace DiagramEditor.Models.Serializers
                 .WithTagMapping("!DiagramElement", typeof(DiagramElement))
                 .WithTagMapping("!DiagramElementAttribute", typeof(DiagramElementAttribute))
                 .WithTagMapping("!DiagramElementOperation", typeof(DiagramElementOperation))
-                */
+                
             .WithNamingConvention(PascalCaseNamingConvention.Instance)
             .Build();
 
             string yaml = serializer.Serialize(elements);
+            File.WriteAllText(path, yaml);
         }
     }
 }

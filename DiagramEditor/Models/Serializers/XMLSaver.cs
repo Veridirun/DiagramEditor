@@ -16,6 +16,8 @@ namespace DiagramEditor.Models.Serializers
             var xDocument = new XDocument();
             var elementsTree=new XElement("ElementsTree");
             
+
+
             xDocument.Add(elementsTree);
             xDocument.Save(path);
         }

@@ -17,6 +17,15 @@ namespace DiagramEditor.Models.Serializers
         {
             string yaml = File.ReadAllText(path);
             var deserializer = new DeserializerBuilder()
+                .WithTagMapping("!DiagramAggregationLine", typeof(DiagramAggregationLine))
+                .WithTagMapping("!DiagramAssociationLine", typeof(DiagramAssociationLine))
+                .WithTagMapping("!DiagramCompositionLine", typeof(DiagramCompositionLine))
+                .WithTagMapping("!DiagramDependencyLine", typeof(DiagramDependencyLine))
+                .WithTagMapping("!DiagramInheritanceLine", typeof(DiagramInheritanceLine))
+                .WithTagMapping("!DiagramRealisationLine", typeof(DiagramRealisationLine))
+                .WithTagMapping("!DiagramElement", typeof(DiagramElement))
+                .WithTagMapping("!DiagramElementAttribute", typeof(DiagramElementAttribute))
+                .WithTagMapping("!DiagramElementOperation", typeof(DiagramElementOperation))
             .WithNamingConvention(PascalCaseNamingConvention.Instance)
             .Build();
 
