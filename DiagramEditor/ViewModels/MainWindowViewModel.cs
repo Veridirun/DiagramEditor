@@ -55,11 +55,56 @@ namespace DiagramEditor.ViewModels
             content = new DiagramElementViewModel();
             buttonAdd = ReactiveCommand.Create<Unit, DiagramElement>(_ =>
             {
+                TestOperations = new ObservableCollection<DiagramElementOperation>();
+                TestAttributes = new ObservableCollection<DiagramElementAttribute>();
+                /*
+                TestOperations.Add(new DiagramElementOperation
+                {
+                    Name = "test1",
+                    Visibility = "public",
+                    Type = "int"
+                });
+                TestOperations.Add(new DiagramElementOperation
+                {
+                    Name = "test2",
+                    Visibility = "package",
+                    Type = "string"
+                });
+                TestOperations.Add(new DiagramElementOperation
+                {
+                    Name = "test3",
+                    Visibility = "private",
+                    Type = "decimal"
+                });
+                
+                TestAttributes.Add(new DiagramElementAttribute
+                {
+                    Name = "test1",
+                    Visibility = "public",
+                    Type = "int",
+                    Stereotype = "event"
+                });
+                TestAttributes.Add(new DiagramElementAttribute
+                {
+                    Name = "test2",
+                    Visibility = "package",
+                    Type = "string",
+                    Stereotype = ""
+                });
+                TestAttributes.Add(new DiagramElementAttribute
+                {
+                    Name = "test3",
+                    Visibility = "private",
+                    Type = "decimal",
+                    Stereotype = "property"
+                });
+                */
                 ElementCollection.Add(new DiagramElement
                 {
+
                     ID = FindMaxID()+1,
                     StartPoint = new Avalonia.Point(100, 100),
-                    Name = "test",
+                    Name = "Name",
                     IsInterface = true,
                     Attributes = TestAttributes,
                     Operations = TestOperations,
@@ -70,60 +115,9 @@ namespace DiagramEditor.ViewModels
                 return null;
             });
 
-            TestOperations = new ObservableCollection<DiagramElementOperation>();
-            TestOperations.Add(new DiagramElementOperation
-            {
-                Name = "test1",
-                Visibility = "public",
-                Type = "int"
-            });
-            TestOperations.Add(new DiagramElementOperation
-            {
-                Name = "test2",
-                Visibility = "package",
-                Type = "string"
-            });
-            TestOperations.Add(new DiagramElementOperation
-            {
-                Name = "test3",
-                Visibility = "private",
-                Type = "decimal"
-            });
-
-            TestAttributes = new ObservableCollection<DiagramElementAttribute>();
-            TestAttributes.Add(new DiagramElementAttribute
-            {
-                Name = "test1",
-                Visibility = "public",
-                Type = "int",
-                Stereotype = "event"
-            });
-            TestAttributes.Add(new DiagramElementAttribute
-            {
-                Name = "test2",
-                Visibility = "package",
-                Type = "string",
-                Stereotype = ""
-            });
-            TestAttributes.Add(new DiagramElementAttribute
-            {
-                Name = "test3",
-                Visibility = "private",
-                Type = "decimal",
-                Stereotype = "property"
-            });
+            
 
             elementCollection = new ObservableCollection<DiagramBaseElement>();
-            ElementCollection.Add(new DiagramElement
-            {
-                StartPoint = new Avalonia.Point(100, 100),
-                Name = "test",
-                IsInterface = true,
-                Attributes = TestAttributes,
-                Operations = TestOperations,
-                Height = 200,
-                Width = 200
-            });
         }
         public void DeleteLine(DiagramBaseLine line)
         {

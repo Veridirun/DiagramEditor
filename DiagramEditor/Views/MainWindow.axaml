@@ -26,15 +26,15 @@
 					<MenuItem Header="_Экспортировать">
 						<MenuItem Header="_XML"/>
 						<MenuItem Click="OnExportMenuClickJSON" Header="_JSON"/>
-						<MenuItem Header="_YAML"/>
-						<MenuItem Header="_PNG"/>
+						<MenuItem Click="OnExportMenuClickYAML" Header="_YAML"/>
+						<MenuItem Click="SaveFileDialogMenuPngClick" Header="_PNG"/>
 						<Separator/>
 						<MenuItem Header="_Закрыть"/>
 					</MenuItem>
 					<MenuItem Header="_Импортировать">
 						<MenuItem Header="_XML"/>
 						<MenuItem Click="OnImportMenuClickJSON" Header="_JSON"/>
-						<MenuItem Header="_YAML"/>
+						<MenuItem Click="OnImportMenuClickYAML" Header="_YAML"/>
 						<Separator/>
 						<MenuItem Header="_Закрыть"/>
 					</MenuItem>
@@ -70,7 +70,7 @@
 				<ItemsControl.DataTemplates>
 
 					<DataTemplate DataType="{x:Type	models:DiagramElement}">
-						<views:DiagramElementControl Name="{Binding Name}" IsInterface="{Binding IsInterface}"
+						<views:DiagramElementControl ElementName="{Binding Name}" IsInterface="{Binding IsInterface}"
 													 Attributes="{Binding Attributes}" StartPoint="{Binding StartPoint}"
 													 Operations="{Binding Operations}"
 													 ElementHeight="{Binding Height}" ElementWidth="{Binding Width}">

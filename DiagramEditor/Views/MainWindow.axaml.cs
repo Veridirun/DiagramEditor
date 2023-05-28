@@ -36,6 +36,8 @@ namespace DiagramEditor.Views
                         var newWindow = new DiagramElementEditView();
                         var newWindowViewModel = new DiagramElementEditViewModel();
                         newWindowViewModel.EditableDiagram = diagram;
+                        if(this.DataContext is MainWindowViewModel viewModel)
+                            newWindowViewModel.DiagramCollection = viewModel.ElementCollection;
                         newWindow.DataContext = newWindowViewModel;
                         newWindow.Show();
                     }
@@ -228,6 +230,48 @@ namespace DiagramEditor.Views
                 {
                     Name = "JSON files",
                     Extensions = new string[] { "json" }.ToList()
+                });
+
+            string[]? path = await openFileDialog.ShowAsync(this);
+
+            if (path != null)
+            {
+                if (this.DataContext is MainWindowViewModel dataContext)
+                {
+                    dataContext.LoadCollection(path[0]);
+                }
+            }
+        }
+        private async void OnExportMenuClickYAML(object sender, RoutedEventArgs eventArgs)
+        {
+            SaveFileDialog saveFileDialog = new SaveFileDialog();
+
+            saveFileDialog.Filters.Add(
+                new FileDialogFilter
+                {
+                    Name = "YAML files",
+                    Extensions = new string[] { "yaml" }.ToList()
+                });
+
+            string? path = await saveFileDialog.ShowAsync(this);
+
+            if (path != null)
+            {
+                if (this.DataContext is MainWindowViewModel dataContext)
+                {
+                    dataContext.SaveCollection(path);
+                }
+            }
+        }
+        private async void OnImportMenuClickYAML(object sender, RoutedEventArgs eventArgs)
+        {
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+
+            openFileDialog.Filters.Add(
+                new FileDialogFilter
+                {
+                    Name = "YAML files",
+                    Extensions = new string[] { "yaml" }.ToList()
                 });
 
             string[]? path = await openFileDialog.ShowAsync(this);

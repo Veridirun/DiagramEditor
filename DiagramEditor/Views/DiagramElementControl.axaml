@@ -5,7 +5,7 @@
 	
     <Design.PreviewWith>
         <Border Padding="20">
-			<controls:DiagramElementControl Name="test" IsInterface="true" ElementHeight="200" ElementWidth="200"/>
+			<controls:DiagramElementControl ElementName="test" IsInterface="true" ElementHeight="200" ElementWidth="200"/>
         </Border>
     </Design.PreviewWith>
 
@@ -36,10 +36,10 @@
 								<StackPanel>
 									<TextBlock Text="{TemplateBinding IsInterface, Converter={StaticResource isInterfaceToStringConverter}}"
 											   FontStyle="Italic" HorizontalAlignment="Center"/>
-									<TextBlock Text="{TemplateBinding Name}" FontWeight="Bold" HorizontalAlignment="Center"/>
+									<TextBlock Text="{TemplateBinding ElementName}" FontWeight="Bold" HorizontalAlignment="Center"/>
 								</StackPanel>
 							</Border>
-							<Grid RowDefinitions="auto,auto">
+							<Grid RowDefinitions="*,*">
 								<Border Grid.Row="0" BorderBrush="Black" BorderThickness="1"><!--аттрибуты-->
 									<DataGrid VerticalScrollBarVisibility="1"
 											  IsReadOnly="True" HeadersVisibility="None" 

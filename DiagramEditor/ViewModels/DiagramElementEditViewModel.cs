@@ -25,9 +25,9 @@ namespace DiagramEditor.ViewModels
                 DiagramOperations.Remove(operation);
                 return Unit.Default;
             });
-            buttonElementRemove = ReactiveCommand.Create<DiagramElement, Unit>(element =>
+            buttonElementRemove = ReactiveCommand.Create<Unit, Unit>(_ =>
             {
-                element = null;
+                DiagramCollection.Remove(EditableDiagram);
                 return Unit.Default;
             });
             buttonAttributeAdd = ReactiveCommand.Create<Unit, Unit>(_ =>
@@ -91,7 +91,7 @@ namespace DiagramEditor.ViewModels
             });
 
         }
-        public ReactiveCommand<DiagramElement, Unit> buttonElementRemove { get; }
+        public ReactiveCommand<Unit, Unit> buttonElementRemove { get; }
         public ReactiveCommand<DiagramElementAttribute, Unit> buttonAttributeRemove { get; }
         public ReactiveCommand<DiagramElementOperation, Unit> buttonOperationRemove { get; }
         public ReactiveCommand<Unit, Unit> buttonOperationAdd { get; }
@@ -102,6 +102,12 @@ namespace DiagramEditor.ViewModels
         {
             get => editableDiagram;
             set => this.RaiseAndSetIfChanged(ref editableDiagram, value);
+        }
+        private ObservableCollection<DiagramBaseElement> diagramCollection;
+        public ObservableCollection<DiagramBaseElement> DiagramCollection
+        {
+            get => diagramCollection;
+            set => this.RaiseAndSetIfChanged(ref diagramCollection, value);
         }
         public ObservableCollection<DiagramElementAttribute> DiagramAttributes
         {

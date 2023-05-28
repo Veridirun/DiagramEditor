@@ -5,6 +5,9 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using YamlDotNet.Serialization.NamingConventions;
+using YamlDotNet.Serialization;
+using System.IO;
 
 namespace DiagramEditor.Models.Serializers
 {
@@ -12,7 +15,13 @@ namespace DiagramEditor.Models.Serializers
     {
         public ObservableCollection<DiagramBaseElement> Load(ObservableCollection<DiagramBaseElement> elements, string path)
         {
-            throw new NotImplementedException();
+            string yaml = File.ReadAllText(path);
+            var deserializer = new DeserializerBuilder()
+            .WithNamingConvention(PascalCaseNamingConvention.Instance)
+            .Build();
+
+            ObservableCollection<DiagramBaseElement> result = deserializer.Deserialize<ObservableCollection<DiagramBaseElement>>(yaml);
+            return result;
         }
     }
 }
