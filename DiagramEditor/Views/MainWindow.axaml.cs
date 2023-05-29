@@ -84,7 +84,7 @@ namespace DiagramEditor.Views
                 }
             }
         }
-            private void PointerMoveDragShape(object? sender, PointerEventArgs pointerEventArgs)
+        private void PointerMoveDragShape(object? sender, PointerEventArgs pointerEventArgs)
         {
             if (pointerEventArgs.Source is Control control)
             {

@@ -24,7 +24,7 @@
 			<DockPanel Grid.Row="0">
 				<Menu Name="menuExport" DockPanel.Dock="Top">
 					<MenuItem Header="_Экспортировать">
-						<MenuItem Header="_XML"/>
+						<MenuItem Click="OnExportMenuClickXML" Header="_XML"/>
 						<MenuItem Click="OnExportMenuClickJSON" Header="_JSON"/>
 						<MenuItem Click="OnExportMenuClickYAML" Header="_YAML"/>
 						<MenuItem Click="SaveFileDialogMenuPngClick" Header="_PNG"/>
@@ -32,7 +32,7 @@
 						<MenuItem Header="_Закрыть"/>
 					</MenuItem>
 					<MenuItem Header="_Импортировать">
-						<MenuItem Header="_XML"/>
+						<MenuItem Click="OnImportMenuClickXML" Header="_XML"/>
 						<MenuItem Click="OnImportMenuClickJSON" Header="_JSON"/>
 						<MenuItem Click="OnImportMenuClickYAML" Header="_YAML"/>
 						<Separator/>
@@ -87,6 +87,12 @@
 								  EndPoint="{Binding EndPoint}"
 								  Stroke="Black"
 								  StrokeThickness="2"/>
+							<!-- 
+							<TextBlock Text="Extends"
+									   Canvas.Left="{Binding MidPoint.X, Converter={StaticResource doubleIntConverter}}"
+									   Canvas.Top="{Binding MidPoint.Y, Converter={StaticResource doubleIntConverter}}">
+							</TextBlock>
+							-->
 							<Polygon Points="-15,-10 0,0 -15,10"
 								  Stroke="Black"
 								  StrokeThickness="2"

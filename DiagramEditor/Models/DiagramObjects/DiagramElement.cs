@@ -49,6 +49,7 @@ namespace DiagramEditor.Models.DiagramObjects
         }
 
         public event EventHandler<ChangeStartPointEventArgs> ChangeStartPoint;
+
         private Point startPoint;
         public Point StartPoint
         {

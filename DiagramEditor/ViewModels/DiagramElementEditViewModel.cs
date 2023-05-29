@@ -117,26 +117,7 @@ namespace DiagramEditor.ViewModels
         {
             get => EditableDiagram.Operations;
         }
-        public int Height
-        {
-            get => EditableDiagram.Height;
-            set => EditableDiagram.Height = value;
-        }
-        public int Width
-        {
-            get => EditableDiagram.Width;
-            set => EditableDiagram.Width = value;
-        }
-        public string DiagramName
-        {
-            get => EditableDiagram.Name;
-            set => EditableDiagram.Name = value;
-        }
-        public bool DiagramIsInterface
-        {
-            get => EditableDiagram.IsInterface;
-            set => EditableDiagram.IsInterface = value;
-        }
+ 
 
         private string operationName;
         public string OperationName

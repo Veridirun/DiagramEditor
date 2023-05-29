@@ -10,8 +10,7 @@ namespace DiagramEditor.Models.DiagramObjects
         {
             Angle = 90;
         }
-        private Point startPoint;
-        private Point endPoint;
+        
         private DiagramElement firstElement;
         private DiagramElement secondElement;
 
@@ -21,7 +20,17 @@ namespace DiagramEditor.Models.DiagramObjects
             get => angle;
             set => SetAndRaise(ref angle, value);
         }
-
+        private Point midPoint;
+        public Point MidPoint
+        {
+            get => midPoint;
+            set => SetAndRaise(ref midPoint, value);
+        }
+        public void UpdateMidPoint()
+        {
+            midPoint = new Point((endPoint.X + startPoint.X) / 2, (endPoint.Y + endPoint.X) / 2);
+            //System.Diagnostics.Debug.WriteLine("MidPoint.X={0} MidPoint.X={1}\n", MidPoint.X, MidPoint.Y);
+        }
         public void UpdateAngle()
         {
             double cos = (endPoint.X - startPoint.X) / Math.Sqrt(Math.Pow(endPoint.Y - startPoint.Y, 2) + Math.Pow(endPoint.X - startPoint.X, 2));
@@ -30,16 +39,20 @@ namespace DiagramEditor.Models.DiagramObjects
 
             if (endPoint.Y < startPoint.Y)
                 Angle = -Angle;
-                
+
+            UpdateMidPoint();
             //System.Diagnostics.Debug.WriteLine("Angle={0}\n",Angle);
         }
         public string Name { get; set; }
+
+        private Point startPoint;
         public Point StartPoint
         {
             get => startPoint;
             set => SetAndRaise(ref startPoint, value);
         }
 
+        private Point endPoint;
         public Point EndPoint
         {
             get => endPoint;

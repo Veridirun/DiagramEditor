@@ -49,6 +49,7 @@
 																Binding="{Binding Visibility, Converter={StaticResource visibilityToSignConverter}}" />
 											<DataGridTextColumn Header="Stereotype" Binding="{Binding Stereotype, Converter={StaticResource stringQuotationAddConverter}}"/>
 											<DataGridTextColumn Header="Name" Binding="{Binding Name}" />
+											<DataGridTextColumn Header="Colon" Binding="{Binding Name, Converter={StaticResource colonConverter}}"/>
 											<DataGridTextColumn Header="Type" Binding="{Binding Type}" />
 										</DataGrid.Columns>
 									</DataGrid>
